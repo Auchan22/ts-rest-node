@@ -1,1 +1,13 @@
-{"version":"5","dialect":"mysql","entries":[]}
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1709677082636,
+      "tag": "0000_wealthy_tarot",
+      "breakpoints": true
+    }
+  ]
+}

@@ -2,11 +2,13 @@
   "name": "ts-rest-node",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "npx nodemon",
-    "db:migrate": "drizzle-kit generate:mysql"
+    "db:migrate": "drizzle-kit generate:pg",
+    "db:push": "drizzle-kit push:pg",
+    "db:migration": "npx ts-node ./db/index.ts"
   },
   "keywords": [],
   "author": "",

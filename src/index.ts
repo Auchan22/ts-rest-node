@@ -9,6 +9,9 @@ import { envSchema } from "./env";
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from "postgres";
 import { Post } from "./schema/post";
+import * as dotenv from "dotenv";
+
+dotenv.config()
 
 type EnvSchemaType = z.infer<typeof envSchema>;
 
@@ -34,18 +37,6 @@ app.get("/", function(req, res) {
 })
 
 createExpressEndpoints(parentContract, router, app);
-
-const queryConnection = postgres(process.env.DATABASE_URL!);
-
-const db = drizzle(queryConnection);
-
-const main = async () => {
-	console.log(await db.select().from(Post));
-	process.exit(0);
-};
-
-main();
-
 
 app.listen(3000, () => {
     console.log("🚀 Servidor Iniciado")
