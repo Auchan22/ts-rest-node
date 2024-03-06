@@ -6,9 +6,6 @@ import morgan from "morgan";
 import postService from './services/post.service';
 import { z } from "zod";
 import { envSchema } from "./env";
-import { drizzle } from 'drizzle-orm/postgres-js';
-import postgres from "postgres";
-import { Post } from "./schema/post";
 import * as dotenv from "dotenv";
 
 dotenv.config()

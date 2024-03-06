@@ -1,40 +1,45 @@
 
 import { RecursiveRouterObj } from "@ts-rest/express/src/lib/types";
 import { parentContract } from "../contracts/index.contract";
-import { PostContract, createPostSchema } from "../contracts/post.contract";
-import { ParamsFromUrl } from "@ts-rest/core";
 import { z } from "zod";
+import { db } from "../../db";
+import { PostSchema, createPostSchema, post } from "../schema/post";
+import { eq } from "drizzle-orm";
 
 const postService: RecursiveRouterObj<typeof parentContract.posts> = {
     getPosts: async () => {
 
-        if(false){
-            return {
-                status: 400,
-                body: {
-                    body: "Hubo un error",
-                    title: "No se pudieron encontrar los posts"
-                }
-            }
-        }
+        const postResult = await db.select().from(post);
 
         return {
             status: 200,
-            body: [{
-                id: 1,
-                title: "Hola",
-                body: "chau"
-            }]
+            body: postResult
         }
     },
     getPost: async ({params: {id}}) => {
-        console.log(id)
-        return {
-            status: 200,
-            body: {
-                id: 1,
-                title: "Hola",
-                body: "chau"
+        try {
+            const postResult = await db.select().from(post).where(eq(post.id, +id)).limit(1) ;
+
+            if(postResult.length != 0){
+                return {
+                    status: 200,
+                    body: postResult[0] as z.infer<typeof PostSchema>
+                }
+            }
+
+            return {
+                status: 404,
+                body: "No se encontro el post con el id: "+id
+            }
+
+            
+        } catch (error ) {
+            return {
+                status: 500,
+                body: {
+                    body: error,
+                    title: "Error de servidor"
+                }
             }
         }
     },

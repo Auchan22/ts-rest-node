@@ -8,6 +8,13 @@
       "when": 1709677082636,
       "tag": "0000_wealthy_tarot",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1709679049823,
+      "tag": "0001_charming_captain_stacy",
+      "breakpoints": true
     }
   ]
 }

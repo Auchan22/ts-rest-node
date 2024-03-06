@@ -4,9 +4,9 @@ import postgres from "postgres";
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-
-const sql = postgres(process.env.DATABASE_URL, { max: 1 })
-const db = drizzle(sql);
+const connectionString = process.env.DATABASE_URL;
+const sql = postgres(connectionString, { prepare: false })
+export const db = drizzle(sql);
 
 const dbMigrate = async () => {
     await migrate(db, { migrationsFolder: "drizzle" });
